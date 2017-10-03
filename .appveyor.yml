@@ -1,0 +1,15 @@
+# https://github.com/mgeisler/textwrap/blob/f4ae5002b0158af06967efe73143499fdb684c15/.appveyor.yml
+install:
+  - ps: Start-FileDownload 'https://static.rust-lang.org/rustup/dist/i686-pc-windows-gnu/rustup-init.exe'
+  - rustup-init.exe -y --default-toolchain stable
+  - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
+
+build_script:
+  - cargo build --verbose
+
+test_script:
+  - cargo test --verbose
+
+cache:
+  - '%USERPROFILE%\.cargo'
+  - target
