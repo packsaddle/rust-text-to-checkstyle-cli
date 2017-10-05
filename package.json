@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cross-spawn": "^5.1.0",
+    "is-travis-ci-build-for-tag": "^1.1.1"
+  }
+}
