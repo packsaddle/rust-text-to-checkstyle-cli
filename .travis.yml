@@ -3,5 +3,5 @@ rust:
   - stable
 after_success:
   - "npm i"
-#  - "is-travis-ci-build-for-tag && node exe/build.js"
-  - "node exe/build.js"
+#  - "is-travis-ci-build-for-tag && node exe/build-linux.js"
+  - "node exe/build-linux.js"
