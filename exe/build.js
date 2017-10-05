@@ -1,6 +1,13 @@
 const spawn = require('cross-spawn');
-const pify = require('pify');
+const targets = [
+  'i686-pc-windows-msvc',
+  'x86_64-pc-windows-msvc',
+  'i686-unknown-linux-musl',
+  'x86_64-unknown-linux-musl',
+  'i686-apple-darwin',
+  'x86_64-apple-darwin',
+];
+const target1 = 'x86_64-unknown-linux-musl';
 
-pify(spawn).spawn('echo', ['yahoooo'], { stdio: 'inherit' }).then(data => {
-  console.log(data);
-});
+spawn.sync('rustup', ['target', 'add', target1], { stdio: 'inherit' });
+spawn.sync('cargo', ['build', '--release', '--target', target1], { stdio: 'inherit' });
