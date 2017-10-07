@@ -1,13 +1,18 @@
 [package]
+authors = ["Sanemat <o.gata.ken@gmail.com>"]
+description = "cli for text to checkstyle."
+include = [
+    "src/**/*",
+    "Cargo.toml",
+    "Cargo.lock",
+]
+license = "MIT/Apache-2.0"
 name = "text-to-checkstyle-cli"
 version = "0.0.3"
-authors = ["Sanemat <o.gata.ken@gmail.com>"]
-include = ["src/**/*", "Cargo.toml", "Cargo.lock"]
-description = "cli for text to checkstyle."
-license = "MIT/Apache-2.0"
 
 [[bin]]
 name = "text-to-checkstyle"
 path = "src/main.rs"
 
 [dependencies]
+atty = "0.2.3"
