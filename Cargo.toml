@@ -3,6 +3,8 @@ name = "text-to-checkstyle-cli"
 version = "0.0.1"
 authors = ["Sanemat <o.gata.ken@gmail.com>"]
 include = ["src/**/*", "Cargo.toml", "Cargo.lock"]
+description = "cli for text to checkstyle."
+license = "MIT/Apache-2.0"
 
 [[bin]]
 name = "text-to-checkstyle"
