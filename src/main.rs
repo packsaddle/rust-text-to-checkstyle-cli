@@ -8,7 +8,9 @@ fn main() {
         println!("I'm a terminal");
     } else {
         let mut buffer = String::new();
-        io::stdin().read_to_string(&mut buffer).expect("can't read.");
+        io::stdin().read_to_string(&mut buffer).expect(
+            "can't read.",
+        );
         println!("<xml>{}</xml>", buffer);
     }
 }
