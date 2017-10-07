@@ -1,6 +1,6 @@
 [package]
 name = "text-to-checkstyle-cli"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Sanemat <o.gata.ken@gmail.com>"]
 include = ["src/**/*", "Cargo.toml", "Cargo.lock"]
 description = "cli for text to checkstyle."
