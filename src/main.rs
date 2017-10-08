@@ -5,6 +5,7 @@ use atty::Stream;
 use std::io::{self, Read};
 use std::error::Error;
 use quick_xml::writer::Writer;
+use quick_xml::events::{BytesDecl, Event, BytesStart, BytesEnd, BytesText};
 
 fn main() {
     if atty::is(Stream::Stdin) {
@@ -36,7 +37,25 @@ struct Checkstyle {
 
 impl Checkstyle {
     fn to_xml(&self) -> Result<String, Box<Error>> {
-        Ok("".to_string())
+        let mut writer = Writer::new(Vec::new());
+        let name = b"checkstyle";
+        writer.write_event(
+            Event::Decl(BytesDecl::new(b"1.0", None, None)),
+        )?;
+        writer.write_event(Event::Start(BytesStart::borrowed(
+            name,
+            name.len(),
+        )))?;
+        for error_file in &self.error_files {
+            writer.write_event(
+                Event::Text(BytesText::borrowed(error_file.name.as_bytes())),
+            )?;
+        }
+        writer.write_event(
+            Event::End(BytesEnd::borrowed(name)),
+        )?;
+        let result = writer.into_inner();
+        Ok(String::from_utf8(result).expect("utf-8 output"))
     }
 }
 
@@ -104,6 +123,28 @@ mod test {
         };
         let checkstyle = Checkstyle { error_files: vec![file] };
         assert_eq!(checkstyle.error_files[0].error_pieces[0].line, 2);
+    }
+    #[test]
+    fn build_checkstyle_to_xml() {
+        let column = 1;
+        let line = 2;
+        let message = "some message";
+        let severity = "info";
+        let source = "some checkstyle";
+        let piece = ErrorPiece {
+            column,
+            line,
+            message: message.to_string(),
+            severity: severity.to_string(),
+            source: source.to_string(),
+        };
+        let name = "path/to/file";
+        let file = ErrorFile {
+            name: name.to_string(),
+            error_pieces: vec![piece],
+        };
+        let checkstyle = Checkstyle { error_files: vec![file] };
+        assert_eq!(checkstyle.to_xml().unwrap(), r#"<?xml version="1.0"?><checkstyle>path/to/file</checkstyle>"#);
     }
 }
 
