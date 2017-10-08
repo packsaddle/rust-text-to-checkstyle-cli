@@ -23,21 +23,25 @@ struct ErrorPiece {
     source: String,
 }
 
-impl ErrorPiece {
-    fn new(
-        column: u32,
-        line: u32,
-        message: &String,
-        severity: &String,
-        source: &String,
-    ) -> Result<ErrorPiece, &'static str> {
-        Ok(ErrorPiece {
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn build_error_piece() {
+        let column = 1;
+        let line = 2;
+        let message = "some message";
+        let severity = "info";
+        let source = "some checkstyle";
+        let piece = ErrorPiece {
             column,
             line,
-            message,
-            severity,
-            source,
-        })
+            message: message.to_string(),
+            severity: severity.to_string(),
+            source: source.to_string(),
+        };
+        assert_eq!(piece.line, 2);
     }
 }
 
