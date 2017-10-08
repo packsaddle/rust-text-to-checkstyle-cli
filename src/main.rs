@@ -14,3 +14,10 @@ fn main() {
         println!("<xml>{}</xml>", buffer);
     }
 }
+
+//<?xml version='1.0'?>
+//<checkstyle>
+//    <file name='path/to/file'>
+//        <error column='0' line='0' message='valid text' severity='info' source='TextToCheckstyle'/>
+//    </file>
+//</checkstyle>
