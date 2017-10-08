@@ -22,6 +22,10 @@ struct ErrorPiece {
     severity: String,
     source: String,
 }
+struct ErrorFile {
+    name: String,
+    error_pieces: Vec<ErrorPiece>,
+}
 
 #[cfg(test)]
 mod test {
@@ -42,6 +46,27 @@ mod test {
             source: source.to_string(),
         };
         assert_eq!(piece.line, 2);
+    }
+    #[test]
+    fn build_error_file() {
+        let column = 1;
+        let line = 2;
+        let message = "some message";
+        let severity = "info";
+        let source = "some checkstyle";
+        let piece = ErrorPiece {
+            column,
+            line,
+            message: message.to_string(),
+            severity: severity.to_string(),
+            source: source.to_string(),
+        };
+        let name = "path/to/file";
+        let file = ErrorFile {
+            name: name.to_string(),
+            error_pieces: vec![piece],
+        };
+        assert_eq!(file.error_pieces[0].line, 2);
     }
 }
 
