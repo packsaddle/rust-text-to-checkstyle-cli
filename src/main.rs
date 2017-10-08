@@ -27,6 +27,10 @@ struct ErrorFile {
     error_pieces: Vec<ErrorPiece>,
 }
 
+struct Checkstyle {
+    error_files: Vec<ErrorFile>,
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -47,6 +51,7 @@ mod test {
         };
         assert_eq!(piece.line, 2);
     }
+
     #[test]
     fn build_error_file() {
         let column = 1;
@@ -67,6 +72,29 @@ mod test {
             error_pieces: vec![piece],
         };
         assert_eq!(file.error_pieces[0].line, 2);
+    }
+
+    #[test]
+    fn build_checkstyle() {
+        let column = 1;
+        let line = 2;
+        let message = "some message";
+        let severity = "info";
+        let source = "some checkstyle";
+        let piece = ErrorPiece {
+            column,
+            line,
+            message: message.to_string(),
+            severity: severity.to_string(),
+            source: source.to_string(),
+        };
+        let name = "path/to/file";
+        let file = ErrorFile {
+            name: name.to_string(),
+            error_pieces: vec![piece],
+        };
+        let checkstyle = Checkstyle { error_files: vec![file] };
+        assert_eq!(checkstyle.error_files[0].error_pieces[0].line, 2);
     }
 }
 
