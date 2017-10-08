@@ -1,7 +1,10 @@
 extern crate atty;
+extern crate quick_xml;
 
 use atty::Stream;
 use std::io::{self, Read};
+use std::error::Error;
+use quick_xml::writer::Writer;
 
 fn main() {
     if atty::is(Stream::Stdin) {
@@ -29,6 +32,12 @@ struct ErrorFile {
 
 struct Checkstyle {
     error_files: Vec<ErrorFile>,
+}
+
+impl Checkstyle {
+    fn to_xml(&self) -> Result<String, Box<Error>> {
+        Ok("".to_string())
+    }
 }
 
 #[cfg(test)]

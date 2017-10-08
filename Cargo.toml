@@ -16,3 +16,4 @@ path = "src/main.rs"
 
 [dependencies]
 atty = "0.2.3"
+quick-xml = "0.9.4"
