@@ -46,32 +46,24 @@ fn main() {
         .get_matches();
 
     if atty::is(Stream::Stdin) {
-        println!("I'm a terminal");
+        let mut buffer = String::new();
     } else {
         let mut buffer = String::new();
         io::stdin().read_to_string(&mut buffer).expect(
             "can't read.",
         );
         let piece = checkstyle::ErrorPiece {
-            column: 0,
-            line: 0,
+            column: matches.value_of("column").unwrap().parse().unwrap(),
+            line: matches.value_of("line").unwrap().parse().unwrap(),
             message: buffer,
-            severity: String::from("info"),
-            source: String::from("text_to_checkstyle"),
+            severity: matches.value_of("severity").unwrap().to_string(),
+            source: matches.value_of("source").unwrap().to_string(),
         };
         let file = checkstyle::ErrorFile {
-            name: String::from("path/to/file"),
+            name: matches.value_of("name").unwrap().to_string(),
             error_pieces: vec![piece],
         };
         let container = checkstyle::Container { error_files: vec![file] };
         println!("{}", container.to_xml().unwrap());
     }
 }
-
-//<?xml version='1.0'?>
-//<checkstyle>
-//    <file name='path/to/file'>
-//        <error column='0' line='0' message='valid text'
-// severity='info' source='TextToCheckstyle'/>
-//    </file>
-//</checkstyle>
