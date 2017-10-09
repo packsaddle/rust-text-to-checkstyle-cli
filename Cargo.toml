@@ -4,7 +4,6 @@ description = "cli for text to checkstyle."
 include = [
     "src/**/*",
     "Cargo.toml",
-    "Cargo.lock",
 ]
 license = "MIT/Apache-2.0"
 name = "text-to-checkstyle-cli"
