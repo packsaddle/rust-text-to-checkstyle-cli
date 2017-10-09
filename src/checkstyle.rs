@@ -18,11 +18,11 @@ pub struct ErrorFile {
     error_pieces: Vec<ErrorPiece>,
 }
 
-pub struct Checkstyle {
+pub struct Container {
     error_files: Vec<ErrorFile>,
 }
 
-impl Checkstyle {
+impl Container {
     fn to_xml(&self) -> Result<String, Box<Error>> {
         let mut writer = Writer::new(Vec::new());
         let name = b"checkstyle";
@@ -108,7 +108,7 @@ mod test {
             name: name.to_string(),
             error_pieces: vec![piece],
         };
-        let checkstyle = Checkstyle { error_files: vec![file] };
+        let checkstyle = Container { error_files: vec![file] };
         assert_eq!(checkstyle.error_files[0].error_pieces[0].line, 2);
     }
     #[test]
@@ -130,7 +130,7 @@ mod test {
             name: name.to_string(),
             error_pieces: vec![piece],
         };
-        let checkstyle = Checkstyle { error_files: vec![file] };
+        let checkstyle = Container { error_files: vec![file] };
         assert_eq!(checkstyle.to_xml().unwrap(), r#"<?xml version="1.0"?><checkstyle>path/to/file</checkstyle>"#);
     }
 }
