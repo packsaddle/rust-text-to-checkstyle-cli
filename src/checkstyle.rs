@@ -84,7 +84,7 @@ impl Container {
         match self.to_xml_events() {
             Ok(events) => {
                 for event in events {
-                    writer.write_event(&event);
+                    writer.write_event(&event)?;
                 }
             }
             Err(err) => return Err(err),
