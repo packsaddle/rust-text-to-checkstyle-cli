@@ -7,7 +7,7 @@ include = [
 ]
 license = "MIT/Apache-2.0"
 name = "text_to_checkstyle_cli"
-version = "0.0.4"
+version = "0.0.5"
 
 [[bin]]
 name = "text-to-checkstyle"
