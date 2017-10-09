@@ -1,5 +1,5 @@
 [root]
-name = "text-to-checkstyle-cli"
+name = "text_to_checkstyle_cli"
 version = "0.0.4"
 dependencies = [
  "atty 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
