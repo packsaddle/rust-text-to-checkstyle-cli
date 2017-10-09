@@ -14,8 +14,7 @@ pub struct ErrorPiece {
 }
 
 impl ErrorPiece {
-    fn to_inner_xml(&self) -> Result<String, Box<Error>> {
-        let mut writer = Writer::new(Vec::new());
+    fn to_xml_event(&self) -> Result<Event, Box<Error>> {
         let error = b"error";
         let mut element = BytesStart::borrowed(error, error.len());
         element.push_attribute(("column".as_bytes(), self.column.to_string().as_bytes()));
@@ -23,9 +22,7 @@ impl ErrorPiece {
         element.push_attribute(("message".as_bytes(), self.message.as_bytes()));
         element.push_attribute(("severity".as_bytes(), self.severity.as_bytes()));
         element.push_attribute(("source".as_bytes(), self.source.as_bytes()));
-        writer.write_event(Event::Empty(element))?;
-        let result = writer.into_inner();
-        Ok(String::from_utf8(result).unwrap())
+        Ok(Event::Empty(element))
     }
 }
 
@@ -80,7 +77,7 @@ mod test {
         assert_eq!(piece.line, 2);
     }
     #[test]
-    fn piece_to_inner_xml() {
+    fn piece_to_xml_event() {
         let column = 1;
         let line = 2;
         let message = "some message";
@@ -96,7 +93,10 @@ mod test {
         let line1 = r#"<error column="1" line="2" message="some message" "#;
         let line2 = r#"severity="info" source="some checkstyle"/>"#;
         let expected = format!("{}{}", line1, line2);
-        assert_eq!(piece.to_inner_xml().unwrap(), expected);
+        let mut writer = Writer::new(Vec::new());
+        writer.write_event(piece.to_xml_event().unwrap()).expect("can't write");
+        let result = writer.into_inner();
+        assert_eq!(String::from_utf8(result).unwrap(), expected);
     }
 
     #[test]
