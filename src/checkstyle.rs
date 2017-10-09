@@ -60,21 +60,35 @@ pub struct Container {
 }
 
 impl Container {
-    fn to_xml(&self) -> Result<String, Box<Error>> {
-        let mut writer = Writer::new(Vec::new());
+    pub fn to_xml_events(&self) -> Result<Vec<Event>, Box<Error>> {
+        let mut events = Vec::new();
         let name = b"checkstyle";
-        writer.write_event(
-            Event::Decl(BytesDecl::new(b"1.0", None, None)),
-        )?;
-        writer.write_event(
-            Event::Start(BytesStart::borrowed(name, name.len())),
-        )?;
+        events.push(Event::Decl(BytesDecl::new(b"1.0", None, None)));
+        events.push(Event::Start(BytesStart::borrowed(name, name.len())));
         for error_file in &self.error_files {
-            writer.write_event(Event::Text(
-                BytesText::borrowed(error_file.name.as_bytes()),
-            ))?;
+            match error_file.to_xml_events() {
+                Ok(file_events) => {
+                    for event in file_events {
+                        events.push(event);
+                    }
+                }
+                Err(err) => return Err(err),
+            }
         }
-        writer.write_event(Event::End(BytesEnd::borrowed(name)))?;
+        events.push(Event::End(BytesEnd::borrowed(name)));
+        Ok(events)
+    }
+
+    pub fn to_xml(&self) -> Result<String, Box<Error>> {
+        let mut writer = Writer::new(Vec::new());
+        match self.to_xml_events() {
+            Ok(events) => {
+                for event in events {
+                    writer.write_event(&event);
+                }
+            }
+            Err(err) => return Err(err),
+        }
         let result = writer.into_inner();
         Ok(String::from_utf8(result).expect("utf-8 output"))
     }
@@ -226,10 +240,17 @@ mod test {
             error_pieces: vec![piece],
         };
         let checkstyle = Container { error_files: vec![file] };
-        assert_eq!(
-            checkstyle.to_xml().unwrap(),
-            r#"<?xml version="1.0"?><checkstyle>path/to/file</checkstyle>"#
-        );
+
+        let l1 = r#"<?xml version="1.0"?>"#;
+        let l2 = r#"<checkstyle>"#;
+        let l3 = r#"<file name="path/to/file">"#;
+        let l4 = r#"<error column="1" line="2" message="some message" "#;
+        let l5 = r#"severity="info" source="some checkstyle"/>"#;
+        let l6 = r#"</file>"#;
+        let l7 = r#"</checkstyle>"#;
+        let expected = format!("{}{}{}{}{}{}{}", l1, l2, l3, l4, l5, l6, l7);
+
+        assert_eq!(checkstyle.to_xml().unwrap(), expected);
     }
 }
 
