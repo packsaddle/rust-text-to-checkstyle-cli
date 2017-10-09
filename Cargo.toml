@@ -6,7 +6,7 @@ include = [
     "Cargo.toml",
 ]
 license = "MIT/Apache-2.0"
-name = "text-to-checkstyle-cli"
+name = "text_to_checkstyle_cli"
 version = "0.0.4"
 
 [[bin]]
