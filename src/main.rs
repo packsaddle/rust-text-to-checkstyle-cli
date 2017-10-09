@@ -12,7 +12,19 @@ fn main() {
         io::stdin().read_to_string(&mut buffer).expect(
             "can't read.",
         );
-        println!("<xml>{}</xml>", buffer);
+        let piece = checkstyle::ErrorPiece {
+            column: 0,
+            line: 0,
+            message: buffer,
+            severity: String::from("info"),
+            source: String::from("text_to_checkstyle"),
+        };
+        let file = checkstyle::ErrorFile {
+            name: String::from("path/to/file"),
+            error_pieces: vec![piece],
+        };
+        let container = checkstyle::Container { error_files: vec![file] };
+        println!("{}", container.to_xml().unwrap());
     }
 }
 

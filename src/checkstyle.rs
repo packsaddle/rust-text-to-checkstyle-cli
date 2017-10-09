@@ -6,11 +6,11 @@ use self::quick_xml::writer::Writer;
 use self::quick_xml::events::{BytesDecl, Event, BytesStart, BytesEnd, BytesText};
 
 pub struct ErrorPiece {
-    column: u32,
-    line: u32,
-    message: String,
-    severity: String,
-    source: String,
+    pub column: u32,
+    pub line: u32,
+    pub message: String,
+    pub severity: String,
+    pub source: String,
 }
 
 impl ErrorPiece {
@@ -29,8 +29,8 @@ impl ErrorPiece {
 }
 
 pub struct ErrorFile {
-    name: String,
-    error_pieces: Vec<ErrorPiece>,
+    pub name: String,
+    pub error_pieces: Vec<ErrorPiece>,
 }
 
 impl ErrorFile {
@@ -56,7 +56,7 @@ impl ErrorFile {
 }
 
 pub struct Container {
-    error_files: Vec<ErrorFile>,
+    pub error_files: Vec<ErrorFile>,
 }
 
 impl Container {
