@@ -33,6 +33,28 @@ pub struct ErrorFile {
     error_pieces: Vec<ErrorPiece>,
 }
 
+impl ErrorFile {
+    pub fn to_xml_events(&self) -> Result<Vec<Event>, Box<Error>> {
+        let mut events = Vec::new();
+        let file = b"file";
+        let mut start_element = BytesStart::borrowed(file, file.len());
+        start_element.push_attribute(("name".as_bytes(), self.name.as_bytes()));
+        events.push(Event::Start(start_element));
+        for error_piece in &self.error_pieces {
+            match error_piece.to_xml_events() {
+                Ok(piece_events) => {
+                    for event in piece_events {
+                        events.push(event);
+                    }
+                }
+                Err(err) => return Err(err),
+            }
+        }
+        events.push(Event::End(BytesEnd::borrowed(file)));
+        Ok(events)
+    }
+}
+
 pub struct Container {
     error_files: Vec<ErrorFile>,
 }
@@ -124,6 +146,42 @@ mod test {
             error_pieces: vec![piece],
         };
         assert_eq!(file.error_pieces[0].line, 2);
+    }
+
+
+    #[test]
+    fn error_file_to_events() {
+        let column = 1;
+        let line = 2;
+        let message = "some message";
+        let severity = "info";
+        let source = "some checkstyle";
+        let piece = ErrorPiece {
+            column,
+            line,
+            message: message.to_string(),
+            severity: severity.to_string(),
+            source: source.to_string(),
+        };
+        let name = "path/to/file";
+        let file = ErrorFile {
+            name: name.to_string(),
+            error_pieces: vec![piece],
+        };
+
+        let line1 = r#"<file name="path/to/file">"#;
+        let line2 = r#"<error column="1" line="2" message="some message" "#;
+        let line3 = r#"severity="info" source="some checkstyle"/>"#;
+        let line4 = r#"</file>"#;
+        let expected = format!("{}{}{}{}", line1, line2, line3, line4);
+
+        let mut writer = Writer::new(Vec::new());
+        let events = file.to_xml_events().unwrap();
+        for event in events {
+            writer.write_event(event).expect("can't write");
+        }
+        let result = writer.into_inner();
+        assert_eq!(String::from_utf8(result).unwrap(), expected);
     }
 
     #[test]
