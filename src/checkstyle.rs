@@ -14,7 +14,7 @@ pub struct ErrorPiece {
 }
 
 impl ErrorPiece {
-    fn to_xml_event(&self) -> Result<Event, Box<Error>> {
+    pub fn to_xml_event(&self) -> Result<Event, Box<Error>> {
         let error = b"error";
         let mut element = BytesStart::borrowed(error, error.len());
         element.push_attribute(("column".as_bytes(), self.column.to_string().as_bytes()));
