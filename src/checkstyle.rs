@@ -3,7 +3,7 @@ extern crate quick_xml;
 use std::error::Error;
 
 use self::quick_xml::writer::Writer;
-use self::quick_xml::events::{BytesDecl, Event, BytesStart, BytesEnd, BytesText};
+use self::quick_xml::events::{BytesDecl, Event, BytesStart, BytesEnd};
 
 pub struct ErrorPiece {
     pub column: u32,
@@ -84,7 +84,7 @@ impl Container {
         match self.to_xml_events() {
             Ok(events) => {
                 for event in events {
-                    writer.write_event(&event);
+                    writer.write_event(&event)?;
                 }
             }
             Err(err) => return Err(err),
