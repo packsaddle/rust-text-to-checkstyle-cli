@@ -8,7 +8,7 @@ environment:
     RUST_VERSION: stable
 
     # TODO Update this to match the name of your project.
-    CRATE_NAME: text_to_checkstyle_cli
+    CRATE_NAME: text2checkstyle_cli
 
   # TODO These are all the build jobs. Adjust as necessary. Comment out what you
   # don't need
