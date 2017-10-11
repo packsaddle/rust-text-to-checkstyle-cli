@@ -5,6 +5,10 @@ include = [
     "src/**/*",
     "Cargo.toml",
 ]
+keywords = [
+    "checkstyle",
+    "text",
+]
 license = "MIT/Apache-2.0"
 name = "text2checkstyle_cli"
 version = "0.0.6"
