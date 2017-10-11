@@ -6,11 +6,11 @@ include = [
     "Cargo.toml",
 ]
 license = "MIT/Apache-2.0"
-name = "text_to_checkstyle_cli"
+name = "text2checkstyle_cli"
 version = "0.0.5"
 
 [[bin]]
-name = "text-to-checkstyle"
+name = "text2checkstyle"
 path = "src/main.rs"
 
 [dependencies]
