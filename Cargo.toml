@@ -19,6 +19,10 @@ license = "MIT/Apache-2.0"
 name = "text2checkstyle_cli"
 version = "0.0.6"
 
+[badges]
+travis-ci = { repository = "packsaddle/rust-text2checkstyle_cli" }
+appveyor = { repository = "sanemat/rust-text2checkstyle-cli" }
+
 [[bin]]
 name = "text2checkstyle"
 path = "src/main.rs"
