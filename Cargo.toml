@@ -5,6 +5,7 @@ repository = "https://github.com/packsaddle/rust-text2checkstyle_cli/"
 include = [
     "src/**/*",
     "Cargo.toml",
+    "changelog.md",
 ]
 keywords = [
     "checkstyle",
