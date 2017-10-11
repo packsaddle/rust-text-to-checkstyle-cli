@@ -1,6 +1,7 @@
 [package]
 authors = ["Sanemat <o.gata.ken@gmail.com>"]
 description = "cli for text to checkstyle."
+repository = "https://github.com/packsaddle/rust-text2checkstyle_cli/"
 include = [
     "src/**/*",
     "Cargo.toml",
