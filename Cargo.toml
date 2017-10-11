@@ -1,13 +1,27 @@
 [package]
 authors = ["Sanemat <o.gata.ken@gmail.com>"]
 description = "cli for text to checkstyle."
+repository = "https://github.com/packsaddle/rust-text2checkstyle_cli/"
 include = [
     "src/**/*",
     "Cargo.toml",
 ]
+keywords = [
+    "checkstyle",
+    "text",
+]
+categories = [
+    "command-line-interface",
+    "command-line-utilities",
+    "development-tools",
+]
 license = "MIT/Apache-2.0"
 name = "text2checkstyle_cli"
 version = "0.0.6"
+
+[badges]
+travis-ci = { repository = "packsaddle/rust-text2checkstyle_cli" }
+appveyor = { repository = "sanemat/rust-text2checkstyle-cli" }
 
 [[bin]]
 name = "text2checkstyle"
