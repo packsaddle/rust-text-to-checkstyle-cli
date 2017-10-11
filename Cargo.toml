@@ -21,7 +21,7 @@ version = "0.0.7"
 
 [badges]
 travis-ci = { repository = "packsaddle/rust-text2checkstyle_cli" }
-appveyor = { repository = "sanemat/rust-text2checkstyle-cli" }
+appveyor = { repository = "packsaddle/rust-text2checkstyle_cli", project_name = "sanemat/rust-text2checkstyle-cli" }
 
 [[bin]]
 name = "text2checkstyle"
