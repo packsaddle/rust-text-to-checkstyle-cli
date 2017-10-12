@@ -23,6 +23,7 @@ main() {
     # TODO Update this to package the right artifacts
     cp target/$TARGET/release/text2checkstyle $stage/
     cp target/$TARGET/release/changelog.md $stage/
+    cp target/$TARGET/release/readme.md $stage/
 
     cd $stage
     tar czf $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *

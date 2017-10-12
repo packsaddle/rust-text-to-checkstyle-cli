@@ -6,6 +6,7 @@ include = [
     "src/**/*",
     "Cargo.toml",
     "changelog.md",
+    "readme.md",
 ]
 keywords = [
     "checkstyle",
