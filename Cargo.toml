@@ -7,6 +7,8 @@ include = [
     "Cargo.toml",
     "changelog.md",
     "readme.md",
+    "license-apache",
+    "license-mit"
 ]
 keywords = [
     "checkstyle",

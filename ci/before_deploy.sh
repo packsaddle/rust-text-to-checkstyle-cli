@@ -24,6 +24,8 @@ main() {
     cp target/$TARGET/release/text2checkstyle $stage/
     cp changelog.md $stage/
     cp readme.md $stage/
+    cp license-apache $stage/
+    cp license-mit $stage/
 
     cd $stage
     tar czf $src/$CRATE_NAME-$TRAVIS_TAG-$TARGET.tar.gz *
