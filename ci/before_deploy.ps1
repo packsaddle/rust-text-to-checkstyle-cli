@@ -14,6 +14,8 @@ $ZIP = "$SRC_DIR\$($Env:CRATE_NAME)-$($Env:APPVEYOR_REPO_TAG_NAME)-$($Env:TARGET
 Copy-Item "$SRC_DIR\target\$($Env:TARGET)\release\text2checkstyle.exe" '.\'
 Copy-Item "$SRC_DIR\changelog.md" '.\'
 Copy-Item "$SRC_DIR\readme.md" '.\'
+Copy-Item "$SRC_DIR\license-apache" '.\'
+Copy-Item "$SRC_DIR\license-mit" '.\'
 
 7z a "$ZIP" *
 
