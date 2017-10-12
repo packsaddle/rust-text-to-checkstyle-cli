@@ -12,8 +12,8 @@ $ZIP = "$SRC_DIR\$($Env:CRATE_NAME)-$($Env:APPVEYOR_REPO_TAG_NAME)-$($Env:TARGET
 
 # TODO Update this to package the right artifacts
 Copy-Item "$SRC_DIR\target\$($Env:TARGET)\release\text2checkstyle.exe" '.\'
-Copy-Item "$SRC_DIR\target\$($Env:TARGET)\release\changelog.md" '.\'
-Copy-Item "$SRC_DIR\target\$($Env:TARGET)\release\readme.md" '.\'
+Copy-Item "$SRC_DIR\changelog.md" '.\'
+Copy-Item "$SRC_DIR\readme.md" '.\'
 
 7z a "$ZIP" *
 
