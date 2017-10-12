@@ -19,7 +19,7 @@ categories = [
 ]
 license = "MIT/Apache-2.0"
 name = "text2checkstyle_cli"
-version = "0.0.9"
+version = "0.0.10"
 
 [badges]
 travis-ci = { repository = "packsaddle/rust-text2checkstyle_cli" }
