@@ -5,6 +5,7 @@ extern crate clap;
 use atty::Stream;
 use clap::{Arg, App};
 use std::io::{self, Read};
+use std::fs::File;
 mod checkstyle;
 
 fn main() {
@@ -45,25 +46,33 @@ fn main() {
         )
         .get_matches();
 
+    let mut buffer = String::new();
     if atty::is(Stream::Stdin) {
-        let mut buffer = String::new();
+        match matches.value_of("file") {
+            Some(file_name) => {
+                let mut f = File::open(file_name).expect("file not found");
+                f.read_to_string(&mut buffer)
+                    .expect("something went wrong reading the file");
+            },
+            _ => return
+        }
     } else {
-        let mut buffer = String::new();
         io::stdin().read_to_string(&mut buffer).expect(
             "can't read.",
         );
-        let piece = checkstyle::ErrorPiece {
-            column: matches.value_of("column").unwrap().parse().unwrap(),
-            line: matches.value_of("line").unwrap().parse().unwrap(),
-            message: buffer,
-            severity: matches.value_of("severity").unwrap().to_string(),
-            source: matches.value_of("source").unwrap().to_string(),
-        };
-        let file = checkstyle::ErrorFile {
-            name: matches.value_of("name").unwrap().to_string(),
-            error_pieces: vec![piece],
-        };
-        let container = checkstyle::Container { error_files: vec![file] };
-        println!("{}", container.to_xml().unwrap());
     }
+
+    let piece = checkstyle::ErrorPiece {
+        column: matches.value_of("column").unwrap().parse().unwrap(),
+        line: matches.value_of("line").unwrap().parse().unwrap(),
+        message: buffer,
+        severity: matches.value_of("severity").unwrap().to_string(),
+        source: matches.value_of("source").unwrap().to_string(),
+    };
+    let file = checkstyle::ErrorFile {
+        name: matches.value_of("name").unwrap().to_string(),
+        error_pieces: vec![piece],
+    };
+    let container = checkstyle::Container { error_files: vec![file] };
+    println!("{}", container.to_xml().unwrap());
 }
