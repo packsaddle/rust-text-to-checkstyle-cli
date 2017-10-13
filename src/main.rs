@@ -6,6 +6,7 @@ use atty::Stream;
 use clap::{Arg, App};
 use std::io::{self, Read};
 use std::fs::File;
+mod text2checkstyle;
 mod checkstyle;
 
 fn main() {
@@ -51,28 +52,26 @@ fn main() {
         match matches.value_of("file") {
             Some(file_name) => {
                 let mut f = File::open(file_name).expect("file not found");
-                f.read_to_string(&mut buffer)
-                    .expect("something went wrong reading the file");
-            },
-            _ => return
+                f.read_to_string(&mut buffer).expect(
+                    "something went wrong reading the file",
+                );
+            }
+            _ => return,
         }
     } else {
         io::stdin().read_to_string(&mut buffer).expect(
             "can't read.",
         );
     }
-
-    let piece = checkstyle::ErrorPiece {
-        column: matches.value_of("column").unwrap().parse().unwrap(),
-        line: matches.value_of("line").unwrap().parse().unwrap(),
-        message: buffer,
-        severity: matches.value_of("severity").unwrap().to_string(),
-        source: matches.value_of("source").unwrap().to_string(),
-    };
-    let file = checkstyle::ErrorFile {
-        name: matches.value_of("name").unwrap().to_string(),
-        error_pieces: vec![piece],
-    };
-    let container = checkstyle::Container { error_files: vec![file] };
-    println!("{}", container.to_xml().unwrap());
+    match text2checkstyle::run(
+        buffer.as_ref(),
+        matches.value_of("column").unwrap().parse().unwrap(),
+        matches.value_of("line").unwrap().parse().unwrap(),
+        matches.value_of("severity").unwrap(),
+        matches.value_of("source").unwrap(),
+        matches.value_of("name").unwrap(),
+    ) {
+        Ok(checkstyle_text) => println!("{}", checkstyle_text),
+        Err(err) => eprintln!("{}", err),
+    }
 }
