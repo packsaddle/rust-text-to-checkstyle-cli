@@ -21,7 +21,7 @@ keywords = [
 license = "MIT/Apache-2.0"
 name = "text2checkstyle_cli"
 repository = "https://github.com/packsaddle/rust-text2checkstyle_cli/"
-version = "0.1.0"
+version = "1.0.0"
 
 [[bin]]
 name = "text2checkstyle"
