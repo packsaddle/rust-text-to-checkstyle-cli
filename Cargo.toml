@@ -36,4 +36,4 @@ repository = "packsaddle/rust-text2checkstyle_cli"
 [dependencies]
 atty = "0.2.3"
 clap = "2.26.2"
-text2checkstyle = "0.1.0"
+text2checkstyle = "1.0.0"
