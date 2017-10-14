@@ -34,4 +34,4 @@ path = "src/main.rs"
 [dependencies]
 atty = "0.2.3"
 clap = "2.26.2"
-quick-xml = "0.9.4"
+text2checkstyle = { path = "../rust-text2checkstyle" }
