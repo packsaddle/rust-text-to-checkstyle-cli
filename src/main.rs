@@ -1,13 +1,12 @@
 extern crate atty;
 #[macro_use]
 extern crate clap;
+extern crate text2checkstyle;
 
 use atty::Stream;
 use clap::{Arg, App};
 use std::io::{self, Read};
 use std::fs::File;
-mod text2checkstyle;
-mod checkstyle;
 
 fn main() {
     let matches = App::new(crate_name!())
