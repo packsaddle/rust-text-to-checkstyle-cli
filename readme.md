@@ -30,7 +30,7 @@ ARGS:
 
 ## License
 
-MIT © [sanemat](http://sane.jp)
+MIT/Apache-2.0 © [sanemat](http://sane.jp)
 
 
 [travis-url]: https://travis-ci.org/packsaddle/rust-text2checkstyle_cli
