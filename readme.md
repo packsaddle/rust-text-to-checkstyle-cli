@@ -8,6 +8,14 @@ For some command line tools. E.g. saddler, reviewdog
 
 See [text2checkstyle](https://github.com/packsaddle/rust-text2checkstyle) for the programmatic API.
 
+## Example
+
+```
+$ echo -n 'example' | text2checkstyle
+<?xml version="1.0"?><checkstyle><file name="path/to/file"><error column="0" line="0" message="example" severity="info" source="TextToCheckstyle"/></file></checkstyle>
+```
+
+
 ## Install
 
 Download from [Latest release](https://github.com/packsaddle/rust-text2checkstyle_cli/releases/latest) for your own environment.
