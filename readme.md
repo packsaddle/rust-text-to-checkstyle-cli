@@ -2,6 +2,24 @@
 
 [![crates version][crates-image]][crates-url] [![Travis-CI Status][travis-image]][travis-url] [![Appveyor Status][appveyor-image]][appveyor-url] ![license][license-image]
 
+> Convert text to checkstyle format.
+
+For some command line tools. E.g. saddler, reviewdog
+
+See [text2checkstyle](https://github.com/packsaddle/rust-text2checkstyle) for the programmatic API.
+
+## Install
+
+Download from [Latest release](https://github.com/packsaddle/rust-text2checkstyle_cli/releases/latest) for your own environment.
+
+or
+
+```
+$ cargo install text2checkstyle_cli
+```
+
+## CLI
+
 ```
 text2checkstyle_cli
 cli for text to checkstyle.
