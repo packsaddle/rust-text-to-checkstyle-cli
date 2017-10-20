@@ -1,7 +1,7 @@
 # text2checkstyle_cli
 
 ```
-text2checkstyle_cli 0.0.9
+text2checkstyle_cli
 Sanemat <o.gata.ken@gmail.com>
 cli for text to checkstyle.
 
