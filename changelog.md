@@ -1,3 +1,9 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/packsaddle/rust-text2checkstyle_cli/compare/v1.1.0...v1.1.1) (2017-10-21)
+
+* Update readme
+* Bump dependencies
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/packsaddle/rust-text2checkstyle_cli/compare/v1.0.0...v1.1.0) (2017-10-14)
 
